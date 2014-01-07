@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/MKdir"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Make Directory"/>
+    <item
+            android:id="@+id/Settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Settings"/>
+    <item
+            android:id="@+id/logOut"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="LogOut"/>
+
+</menu>

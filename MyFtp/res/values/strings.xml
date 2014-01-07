@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyFtp</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="newConnection">Create New Connection</string>
+    <string name="selectConnection">Select a previously used connection</string>
+    <string name="enterName">Name:</string>
+    <string name="backButton">Back</string>
+    <string name="nextButton">Next</string>
+    <string name="adressText">Adress:</string>
+    <string name="portText">Port:</string>
+    <string name="portPrompt">Select a Port </string>
+    <string name="userText">User:</string>
+    <string name="passText">Password:</string>
+    <string name="showPass">Show Password</string>
+    <string name="connectTxt">Connect</string>
+    <string name="saveText">Save Password</string>
+
+</resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myftp"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+    
+      <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.myftp.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".newConnectionAddress"
+            android:label="Enter Server Adress">
+            <intent-filter>
+                <action android:name="com.example.myftp.newConnectionAddress"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".newConnectionName"
+            android:label="Enter Server Name">
+            <intent-filter>
+                <action android:name="com.example.myftp.newConnectionName"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".newConnectionCreds"
+            android:label="Enter User Credentials">
+            <intent-filter>
+                <action android:name="com.example.myftp.newConnectionCreds"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+         <activity
+            android:name=".newConnectionConfirm"
+            android:label="Confirm the information is correct:">
+            <intent-filter>
+                <action android:name="com.example.myftp.newConnectionConfirm"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        
+          <activity
+            android:name=".mainClient"
+            android:label="FTP Client:Server: ">
+            <intent-filter>
+                <action android:name="com.example.myftp.mainClient"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+            
+    </application>
+
+</manifest>

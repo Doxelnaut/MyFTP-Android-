@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".newConnectionAddress" >
+
+    <TextView
+        android:id="@+id/adressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="39dp"
+        android:text="@string/adressText"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/exAdress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/adressText"
+        android:layout_alignBottom="@+id/adressText"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/adressText"
+        android:text="(ex. 192.168.1.12)"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/addressField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/adressText"
+        android:layout_below="@+id/adressText"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:inputType="text"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:textColor="@android:color/white" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/portText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addressField"
+        android:layout_marginTop="48dp"
+        android:text="@string/portText"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/portField"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/portText"
+        android:layout_alignBottom="@+id/portText"
+        android:layout_alignLeft="@+id/exAdress"
+        android:ems="10"
+        android:hint="21"
+        android:inputType="number"
+        android:textColor="@android:color/white" />
+
+           <Button
+             android:id="@+id/nextBtn"
+             android:layout_width="120dp"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
+             android:layout_marginBottom="35dp"
+             android:layout_centerHorizontal="true"
+             android:onClick="onClickNext"
+             android:text="@string/nextButton" />
+
+</RelativeLayout>

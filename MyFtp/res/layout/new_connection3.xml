@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@android:color/black"
+    tools:context=".newConnectionCreds" >
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/userText"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/userField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textColor="@android:color/white">
+        <requestFocus/>
+        </EditText>
+
+    <TextView
+        android:id="@+id/passText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userField"
+        android:layout_below="@+id/userField"
+        android:layout_marginTop="30dp"
+        android:text="@string/passText"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+    
+       <EditText
+             android:id="@+id/passField"
+             android:layout_width="wrap_content"
+             android:layout_marginTop="30dp"
+             android:layout_height="wrap_content"
+             android:layout_alignLeft="@+id/passText"
+             android:layout_below="@+id/passText"
+             android:layout_centerVertical="true"
+             android:ems="10"
+             android:inputType="textPassword"
+             android:textColor="@android:color/white" />
+
+
+         <CheckBox
+             android:id="@+id/showPass"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_below="@+id/passField"
+             android:layout_marginTop="14dp"
+             android:onClick="onClickShowPass"
+             android:text="@string/showPass"
+             android:textColor="@android:color/white" />
+         <CheckBox
+             android:id="@+id/savePass"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_below="@+id/showPass"
+             android:layout_marginTop="14dp"
+             android:onClick="onClickShowPass"
+             android:text="@string/saveText"
+             android:textColor="@android:color/white" />
+
+         <Button
+             android:id="@+id/nextBtn"
+             android:layout_width="120dp"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
+             android:layout_marginBottom="35dp"
+             android:layout_centerHorizontal="true"
+             android:onClick="onClickNext"
+             android:text="@string/nextButton" />
+
+</RelativeLayout>

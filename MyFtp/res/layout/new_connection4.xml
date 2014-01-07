@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@android:color/black"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".newConnectionConfirm" >
+    
+       <TableLayout
+           android:id="@+id/table1"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentTop="true"
+           android:layout_centerHorizontal="true"
+           android:stretchColumns="0,1,2,3,4"
+           android:layout_marginTop="10dp" >
+
+         <TableRow
+             android:id="@+id/NameRow"
+             android:layout_width="fill_parent">
+             
+             <TextView 
+                 android:id="@+id/NameText"
+                 android:gravity="left"
+                 android:text="Name:"
+                 android:textColor="@android:color/white"
+                 />
+               <TextView 
+                 android:id="@+id/nameField"
+                 android:gravity="left"
+                 android:textColor="@android:color/white"
+                 />
+             
+             
+         </TableRow>
+
+         <TableRow
+             android:id="@+id/AddressRow"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content" >
+               
+               <TextView 
+                 android:id="@+id/AddressText"
+                 android:gravity="left"
+                 android:text="Server Address:"
+                 android:textColor="@android:color/white"
+                 />
+               <TextView 
+                 android:id="@+id/addressField"
+                 android:gravity="left"
+                 android:textColor="@android:color/white"
+                 />
+         </TableRow>
+
+         
+         <TableRow
+             android:id="@+id/PortRow"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content" >
+               
+              <TextView 
+                 android:id="@+id/PortText"
+                 android:gravity="left"
+                 android:text="Connection Port:"
+                 android:textColor="@android:color/white"
+                 />
+               <TextView 
+                 android:id="@+id/portField"
+                 android:gravity="left"
+                 android:textColor="@android:color/white"
+                 />
+         </TableRow>
+
+         <TableRow
+             android:id="@+id/UserRow"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content" >
+               <TextView 
+                 android:id="@+id/UserText"
+                 android:gravity="left"
+                 android:text="User:"
+                 android:textColor="@android:color/white"
+                 />
+               <TextView 
+                 android:id="@+id/userField"
+                 android:gravity="left"
+                 android:textColor="@android:color/white"
+                 />
+         </TableRow>
+         
+         <TableRow
+             android:id="@+id/PassRow"
+              android:layout_width="fill_parent"
+             android:layout_height="wrap_content" >
+               
+              <TextView 
+                 android:id="@+id/PassText"
+                 android:gravity="left"
+                 android:text="Password:"
+                 android:textColor="@android:color/white"
+                 />
+               <TextView 
+                 android:id="@+id/passField"
+                 android:gravity="left"
+                 android:inputType="textPassword"
+                 android:textColor="@android:color/white"
+                 />
+         </TableRow>
+         
+     </TableLayout>
+
+        <Button
+            android:id="@+id/connectBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/table1"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="38dp"
+            android:onClick="onClickConnect"
+            android:text="@string/connectTxt" />
+
+</RelativeLayout>
