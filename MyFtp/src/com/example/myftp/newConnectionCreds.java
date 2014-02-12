@@ -4,39 +4,62 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class newConnectionCreds extends Activity {
+	String name;
+	String address;
+	int port ;
+	int ID;
+	String user;
+	String pass;
+	int save;
+	EditText uEdit;
+	EditText pEdit;
+	CheckBox saveP;
+	CheckBox box;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_connection3);
 		
+		Intent oldIntent = getIntent();
+		name = oldIntent.getStringExtra("name");
+		address = oldIntent.getStringExtra("address");
+		port = oldIntent.getIntExtra("port",21);
+		ID = oldIntent.getIntExtra("ID", -1);
+		user = oldIntent.getStringExtra("user");
+		pass = oldIntent.getStringExtra("pass");
+		save = oldIntent.getIntExtra("save", 0);
+		
+		uEdit = (EditText)findViewById(R.id.userField);
+		pEdit = (EditText)findViewById(R.id.passField);
+		saveP = (CheckBox)findViewById(R.id.savePass);
+		box = (CheckBox)findViewById(R.id.showPass);
+		
+		if(user != null){
+			uEdit.setText(user);
+		}
+		
+		if(pass != null){
+			pEdit.setText(pass);
+			saveP.setChecked(true);
+			box.setVisibility(View.INVISIBLE);
+			
+		}
+		
 	}
 
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 	
 	public void onClickNext(View view){
-		Intent oldIntent = getIntent();
-		String name = oldIntent.getStringExtra("name");
-		String address = oldIntent.getStringExtra("address");
-		int port = oldIntent.getIntExtra("port",21);
 		
-		EditText uEdit = (EditText)findViewById(R.id.userField);
-		EditText pEdit = (EditText)findViewById(R.id.passField);
 		
-		String user = uEdit.getText().toString();
-		String pass = pEdit.getText().toString();
 		
-		int save = 0;
-		CheckBox saveP = (CheckBox)findViewById(R.id.savePass);
+		user = uEdit.getText().toString();
+		pass = pEdit.getText().toString();
+		
 		if(saveP.isChecked()){
 			save = 1;
 		}
@@ -47,18 +70,14 @@ public class newConnectionCreds extends Activity {
 		intent.putExtra("user", user);
 		intent.putExtra("pass", pass);
 		intent.putExtra("save", save);
+		intent.putExtra("ID", ID);
 		startActivity(intent);
 		
 	}
-	
-	/*public void onClickUserField(View view){
-		EditText uEdit = (EditText)findViewById(R.id.userField);
-		EditText pEdit = (EditText)findViewById(R.id.passField);
-		
-	}*/
+
 	
 	public void onClickShowPass(View view){
-		CheckBox box = (CheckBox)findViewById(R.id.showPass);
+		
 		EditText pEdit = (EditText)findViewById(R.id.passField);
 		
 		if(box.isChecked()){

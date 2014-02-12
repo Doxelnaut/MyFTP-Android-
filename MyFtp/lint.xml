@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="NewApi">
+        <ignore path="src/com/example/myftp/MainActivity.java" />
+        <ignore path="src/com/example/myftp/SavedConnections.java" />
         <ignore path="src/com/example/myftp/mainClient.java" />
     </issue>
 </lint>

@@ -1,5 +1,9 @@
+/*
+ * FTPAdapter: an adapter for use with FTP client. Allows for easy communication between activity and apache FTP Client.
+ */
 package com.example.myftp;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,15 +19,20 @@ import android.util.Log;
 
 public class FtpAdapter {
 
+	//global variables used when connecting to FTP server
 	String address;
 	String user;
 	String pass;
 	int port;
 	FTPClient client;
-	final Context context;
-	String TAG = "FTPClient";
-	String localDir = Environment.getExternalStorageDirectory().toString();
 	
+	//context sent from android activity
+	final Context context;
+	
+	//tag for logs
+	String TAG = "FTPClient";
+	
+	//constructor 
 	FtpAdapter(String a, String u, String p, int pt, Context ctx){
 		address = a;
 		user = u;
@@ -36,11 +45,15 @@ public class FtpAdapter {
 		
 	}
 //---------------------------------------------------------------------------------------------
+	/*
+	 * ftpConnect: connects the client to the server. Enters passive mode and sets transfer mode.
+	 */
 	int ftpConnect() throws SocketException, IOException{
 		client.connect(address, port);
 		client.enterLocalPassiveMode();
 		client.login(user, pass);
 		
+		//test if connection was successful
 		if(FTPReply.isPositiveCompletion(readReply())){
 			client.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 			client.setFileType(FTP.ASCII_FILE_TYPE);
@@ -52,12 +65,17 @@ public class FtpAdapter {
 		}
 	}
 //---------------------------------------------------------------------------------------------
+	/*
+	 * ftpDisconnect: disconnects the client from the server
+	 */
 	void ftpDisconnect() throws IOException{
 		client.logout();
 		client.disconnect();
 	}
 //---------------------------------------------------------------------------------------------
-	
+	/*
+	 * getWD: requests the current working directory from the server.
+	 */
 	String getWD() {
 		String dir = null;
 		try {
@@ -67,10 +85,13 @@ public class FtpAdapter {
 			System.out.println("Error retreiving working directory");
 			return null;
 		}
+		int reply = readReply();
 		return dir;
 	}
 //--------------------------------------------------------------------------------------------
-	
+	/*
+	 * cd: attempts to change the working director on the server
+	 */
 	int cd(String path){
 		try {
 			client.changeWorkingDirectory(path);
@@ -88,7 +109,9 @@ public class FtpAdapter {
 		return 0;
 	}
 //-----------------------------------------------------------------------------------------------
-
+/*
+ * readReply: reads the reply from the server
+ */
 	int readReply(){
 		
 		int reply = 0;
@@ -97,6 +120,9 @@ public class FtpAdapter {
 	}
 	
 //------------------------------------------------------------------------------------------------
+	/*
+	 * mkDir: makes a directory in the pwd on the server
+	 */
 	int mkDir(String name){
 		try {
 			client.makeDirectory(name);
@@ -113,8 +139,14 @@ public class FtpAdapter {
 		}
 	}
 //------------------------------------------------------------------------------------------------
+	/*
+	 * pullFile: pulls a file from the server onto the client.
+	 */
 	int pullFile(String src, String dest){
+		//define file output stream in the pwd on the client
 		FileOutputStream desFileStream;
+		
+		//open output stream
 		try {
 			desFileStream = new FileOutputStream(dest);
 		} catch (FileNotFoundException e) {
@@ -122,8 +154,9 @@ public class FtpAdapter {
 			e.printStackTrace();
 			System.out.println("Error creating output stream");
 			return 1;
-		};  
+		}  
 		
+		//pull file from server
 	      try {
 			client.retrieveFile(src, desFileStream);
 		} catch (IOException e) {
@@ -132,6 +165,8 @@ public class FtpAdapter {
 			System.out.println("Error retrieving file");
 			return 2;
 		}  
+	     
+	      //close output file stream
 	      try {
 			desFileStream.close();
 		} catch (IOException e) {
@@ -140,12 +175,20 @@ public class FtpAdapter {
 			System.out.println("Error closing file stream");
 			return 3;
 		}  
-	      return 0;
+	      
+	      int reply = readReply();
+	      return reply;
 	}
 //---------------------------------------------------------------------------------------------
-	
+	/*
+	 * putFile: uploads a file to the server
+	 */
 	int putFile(String src, String dest){
+		
+		//define input stream
 		   FileInputStream srcFileStream;
+		   
+		   //open input stream
 		try {
 			srcFileStream = context.openFileInput(src);
 		} catch (FileNotFoundException e) {
@@ -154,6 +197,8 @@ public class FtpAdapter {
 			System.out.println("Error opening file for put");
 			return 1;
 		}  
+		
+		//upload file
 		   try {
 			client.storeFile(dest, srcFileStream);
 		} catch (IOException e) {
@@ -162,6 +207,8 @@ public class FtpAdapter {
 			System.out.println("Error writing file to server");
 			return 2;
 		}  
+		   
+		   //close input stream
 		   try {
 			srcFileStream.close();
 		} catch (IOException e) {
@@ -170,29 +217,39 @@ public class FtpAdapter {
 			System.out.println("Error closing stream");
 			return 3;
 		} 
-		   return 0;
+		   int reply = readReply();
+		   return reply;
 	}
 //------------------------------------------------------------------------------------------------
-	
+	/*
+	 * ftpPrintFilesList: gets all files and directories in pwd of server. Stores this information as an arrayList of List Entries.
+	 */
 	public ArrayList<ListEntry> ftpPrintFilesList()  
     {  
+		//get pwd
+		String wd = this.getWD();
+		
+		//define ArrayList to store listEntries
 		ArrayList<ListEntry> list = new ArrayList<ListEntry>();
-		 ListEntry current = new ListEntry(".",true);
-	        list.add(current); 
-	        ListEntry parent = new ListEntry("..",true);
+		
+		//add the parent directory to the list (may not be necessary depending on the server)
+	        ListEntry parent = new ListEntry("..",true,wd);
 	        list.add(parent);
+	        
+	  //add the rest of the files and directories to the list      
       try {  
         FTPFile[] ftpFiles = client.listFiles(".");  
         int length = ftpFiles.length;  
         for (int i = 0; i < length; i++) {  
           String name = ftpFiles[i].getName();  
-          boolean isFile = ftpFiles[i].isFile();  
+          boolean isFile = ftpFiles[i].isFile();
+          //test if file or dir
           if (isFile) {  
-            ListEntry e = new ListEntry(name,false);
+            ListEntry e = new ListEntry(name,false,wd.concat("/".concat(name))); //add file (designated by 'false' value)
             list.add(e);
           }  
           else {  
-        	  ListEntry e = new ListEntry(name,true);
+        	  ListEntry e = new ListEntry(name,true,wd.concat("/".concat(name)));//add directory (deisgnated by 'true' value)
               list.add(e); 
           }  
         }

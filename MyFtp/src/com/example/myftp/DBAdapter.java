@@ -1,3 +1,6 @@
+/*
+ * DBAdapter: adapter class for use with ftp client. Allows the client to save and restore account information.
+ */
 package com.example.myftp;
 
 import android.content.ContentValues;
@@ -9,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBAdapter {
+	//Column definitions
 	static final String KEY_ROWID = "_id";
 	static final String KEY_USER = "user";
 	static final String KEY_PASS = "pass";
@@ -17,29 +21,41 @@ public class DBAdapter {
 	static final String KEY_SAVE = "save";
 	static final String KEY_DATE = "date";
 	static final String KEY_PORT = "port";
-	static final String TAG = "DBAdapter";
 	
+	//Global variables
+	static final String TAG = "DBAdapter";
 	static final String DATABASE_NAME = "myFTPDB.db";
 	static final String DATABASE_TABLE = "connections";
 	static final int DATABASE_VERSION = 1;
 	
+	//string used when defining the database table
 	static final String DATABASE_CREATE = "create table connections (_id integer primary key autoincrement, " + "user text not null, pass text, address text not null, port integer not null, nickname text not null, date text, save integer not null);";
 	
+	//context sent from android activity
 	final Context context;
 	
+	//global databaseHelper instance
 	DatabaseHelper DBHelper;
+	//global database instance
 	SQLiteDatabase db;
-	
+
+	//constructor
 	public DBAdapter(Context ctx){
 		this.context = ctx;
 		DBHelper = new DatabaseHelper(context);
 	}
 	
+/*
+ * DatabaseHelper class: class that communicates with SQL database so the FTP client doesn't need to do so directly
+ */
 	private static class DatabaseHelper extends SQLiteOpenHelper{
+		
+		//constructor
 		DatabaseHelper(Context context){
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 		
+		//called when database is first created
 		public void onCreate(SQLiteDatabase db){
 			try{
 				db.execSQL(DATABASE_CREATE);
@@ -47,6 +63,8 @@ public class DBAdapter {
 				e.printStackTrace();
 			}
 		}
+		
+		//allows for upgrading the database
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS connections");
@@ -83,9 +101,9 @@ public class DBAdapter {
 		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 	
-	//retrieve all connections
+	//retrieve all connections ordered by date
 	public Cursor getAllConnections(){
-		return db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USER, KEY_PORT, KEY_PASS, KEY_SERVERADDR, KEY_SAVE, KEY_SERVERNAME, KEY_DATE}, null, null, null, null, null);
+		return db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USER, KEY_PORT, KEY_PASS, KEY_SERVERADDR, KEY_SAVE, KEY_SERVERNAME, KEY_DATE}, null, null, null, null, KEY_DATE+" DESC");
 	}
 	
 	//retrieve a particular connection
@@ -99,7 +117,7 @@ public class DBAdapter {
 	}
 	
 	//update a connection
-	public boolean updateConnection(long rowId, String user, String pass, String address, String nickname, int port, String save, String date){
+	public boolean updateConnection(long rowId, String user, String pass, String address, String nickname, int port, int save, String date){
 		ContentValues args = new ContentValues();
 		args.put(KEY_USER, user);
 		args.put(KEY_PASS, pass);

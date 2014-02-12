@@ -16,6 +16,7 @@ public class newConnectionConfirm extends Activity{
 	String user;
 	String pass;
 	int save;
+	int ID;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class newConnectionConfirm extends Activity{
 		user = oldIntent.getStringExtra("user");
 		pass = oldIntent.getStringExtra("pass");
 		save = oldIntent.getIntExtra("save", 0);
+		ID = oldIntent.getIntExtra("ID", -1);
 		
 		TextView nameF = (TextView)findViewById(R.id.nameField);
 		TextView addressF = (TextView)findViewById(R.id.addressField);
@@ -52,6 +54,7 @@ public class newConnectionConfirm extends Activity{
 		intent.putExtra("user", user);
 		intent.putExtra("pass", pass);
 		intent.putExtra("save", save);
+		intent.putExtra("ID", ID);
 		startActivity(intent);
 	}
 	

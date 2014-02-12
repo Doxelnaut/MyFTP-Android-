@@ -39,7 +39,9 @@ public class newConnectionAddress extends Activity{
 		intent.putExtra("name", name);
 		intent.putExtra("address", address);
 		intent.putExtra("port", port);
+		intent.putExtra("ID", -1);
 		startActivity(intent);
+		
 	}
 
 }
